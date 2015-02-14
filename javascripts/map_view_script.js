@@ -74,3 +74,15 @@ function makeMarker(file)
   reader.readAsDataURL(file);
 }
 
+var dispatcher = {
+  'current': function (params) {
+  }
+};
+
+window.addEventListener('message', (event) => {
+  var cmd = event.data.split(':')[0];
+  var params = JSON.parse(event.data.sprit(':')[1]);
+  dispatcher[cmd](params);
+});
+
+
