@@ -82,7 +82,9 @@ var dispatcher = {
 
 window.addEventListener('message', (event) => {
   var cmd = event.data.split(':')[0];
-  var params = JSON.parse(event.data.slice(event.data.indexOf(':')));
+  var idx = event.data.indexOf(':');
+  var paramStr = event.data.slice(idx);
+  var params = JSON.parse(paramStr);
   dispatcher[cmd](params);
 });
 
