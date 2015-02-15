@@ -93,7 +93,7 @@ function makeMarker(pos, icon) {
 var dispatcher = {
   'current': function (params) {
     console.log('current: ' + JSON.stringify(params));
-    setCenter(params.coords.latitude, params.coords.longitude);
+    setCenterPosition(params.coords.latitude, params.coords.longitude);
   },
   'marker': function (params) {
     console.log('marker: ' + JSON.stringify(params));
