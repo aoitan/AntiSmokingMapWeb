@@ -85,6 +85,7 @@ function makeMarker(pos, icon, image) {
     if (now - touchTime > 300) {
       viewSummary();
       touchTime = now;
+      console.log('touchTime: ' + touchTime);
     }
   });
 }
@@ -110,6 +111,7 @@ function viewSummary(html) {
     if (now - touchTime > 300) {
       viewMap();
       touchTime = now;
+      console.log('touchTime: ' + touchTime);
     }
   });
 
@@ -121,6 +123,7 @@ function viewSummary(html) {
     if (now - touchTime > 300) {
       viewDetail();
       touchTime = now;
+      console.log('touchTime: ' + touchTime);
     }
   });
   pinSummary.innerHTML = 'ここに概要が出る';
@@ -137,6 +140,7 @@ function viewDetail(html) {
     if (now - touchTime > 300) {
       viewMap();
       touchTime = now;
+      console.log('touchTime: ' + touchTime);
     }
   });
 
@@ -148,6 +152,7 @@ function viewDetail(html) {
     if (now - touchTime > 300) {
       viewSummary();
       touchTime = now;
+      console.log('touchTime: ' + touchTime);
     }
   });
   pinSummary.innerHTML = 'ここに概要が出る';
