@@ -66,7 +66,7 @@ function makeIcon(imgObj, url) {
   return icon;
 }
 
-function makeMarker(pos, icon) {
+function makeMarker(pos, icon, image) {
   // マーカーを作る
   var marker = new google.maps.Marker({
     position: pos,
@@ -82,11 +82,13 @@ function makeMarker(pos, icon) {
 
   // マーカーがクリックされたイベントハンドラ
   google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent(
-      // infoウィンドウで表示する内容のHTML
-      '<a href="' + url + '"><img src="' + url + '"></a><br />' +
-      '緯度：' + pos.lat() + '<br />経度：' + pos.lng()
-    );
+    // infoウィンドウで表示する内容のHTML
+    var html = "";
+    if (image) {
+      html = '<a href="' + image + '"><img src="' + image + '"></a><br />';
+    }
+    html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng()
+    infoWindow.setContent(html);
     infoWindow.open(map, marker);
   });
 }
