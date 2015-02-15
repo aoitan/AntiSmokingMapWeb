@@ -80,17 +80,23 @@ function makeMarker(pos, icon, image) {
   });
 
   // マーカーがクリックされたイベントハンドラ
-  google.maps.event.addListener(marker, 'touchend', function() {
-    // infoウィンドウで表示する内容のHTML
-    var html = "";
-    if (image) {
-      html = '<a href="' + image + '"><img src="' + image + '"></a><br />';
+  google.maps.event.addListener(marker, 'click', function() {
+    var now = new Date().getTime();
+    if (now - touchTime > 300) {
+      // infoウィンドウで表示する内容のHTML
+      var html = "";
+      if (image) {
+        html = '<a href="' + image + '"><img src="' + image + '"></a><br />';
+      }
+      html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng();
+      console.log(html);
+      viewSummary(html);
+      touchTime = now;
     }
-    html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng();
-    console.log(html);
-    viewSummary(html);
   });
 }
+
+var touchTime = 0;
 
 function viewMap() {
   var mapCanvas = document.getElementById('map-canvas');
@@ -106,15 +112,23 @@ function viewMap() {
 function viewSummary(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '80%';
-  mapCanvas.addEventListener('touchend', (evt) => {
-    viewMap();
+  mapCanvas.addEventListener('click', (evt) => {
+    var now = new Date().getTime();
+    if (now - touchTime > 300) {
+      viewMap();
+      touchTime = now;
+    }
   });
 
   var pinSummary = document.getElementById('pin-summary');
   pinSummary.style.height = '20%';
   pinSummary.style.display = 'block';
-  pinSummary.addEventListener('touchend', (evt) => {
-    viewDetail();
+  pinSummary.addEventListener('click', (evt) => {
+    var now = new Date().getTime();
+    if (now - touchTime > 300) {
+      viewDetail();
+      touchTime = now;
+    }
   });
   pinSummary.innerHTML = 'ここに概要が出る';
 
@@ -125,15 +139,23 @@ function viewSummary(html) {
 function viewDetail(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '20%';
-  mapCanvas.addEventListener('touchend', (evt) => {
-    viewMap();
+  mapCanvas.addEventListener('click', (evt) => {
+    var now = new Date().getTime();
+    if (now - touchTime > 300) {
+      viewMap();
+      touchTime = now;
+    }
   });
 
   var pinSummary = document.getElementById('pin-summary');
   pinSummary.style.height = '20%';
   pinSummary.style.display = 'block';
-  pinSummary.addEventListener('touchend', (evt) => {
-    viewSummary();
+  pinSummary.addEventListener('click', (evt) => {
+    var now = new Date().getTime();
+    if (now - touchTime > 300) {
+      viewSummary();
+      touchTime = now;
+    }
   });
   pinSummary.innerHTML = 'ここに概要が出る';
 
