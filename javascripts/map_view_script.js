@@ -9,7 +9,7 @@ function map_view_loading() {
 
 function mapView(latitude, longitude) {
   var mapOptions = {
-    zoom: 10,
+    zoom: 8,
     center: new google.maps.LatLng(latitude, longitude),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -94,6 +94,11 @@ var dispatcher = {
   'current': function (params) {
     console.log('current: ' + JSON.stringify(params));
     setCenter(params.coords.latitude, params.coords.longitude);
+  },
+  'marker': function (params) {
+    console.log('marker: ' + JSON.stringify(params));
+    var pos = new google.maps.LatLng(params.coords.latitude, params.coords.longitude);
+    makeMarker(pos);
   }
 };
 
