@@ -73,7 +73,6 @@ function makeMarker(pos, icon, image) {
     map: map,
     icon: icon
   });
-  console.log('makeMarker: ' + JSON.stringify(marker));
 
   // マーカーがクリックされたときに表示するinfoウィンドウを作る
   var infoWindow = new google.maps.InfoWindow({
