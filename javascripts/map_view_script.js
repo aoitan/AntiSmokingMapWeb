@@ -95,66 +95,94 @@ var touchTime = 0;
 function viewMap() {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '100%';
+  mapCanvas.style.display = 'block';
+  mapCanvas.removeEventListener('click', viewSummaryListenerMap);
+  mapCanvas.removeEventListener('click', viewDetailListenerMap);
 
   var pinSummary = document.getElementById('pin-summary');
+  pinSummary.style.height = '0%';
   pinSummary.style.display = 'none';
+  pinSummary.removeEventListener('click', viewSummaryListenerSummary);
+  pinSummary.removeEventListener('click', viewDetailListenerSummary);
 
   var pinDetail = document.getElementById('pin-detail');
+  pinDetail.style.height = '0%';
   pinDetail.style.display = 'none';
+  pinDetail.removeEventListener('click', viewDetailListenerDetail);
 }
+
+function viewSummaryListenerMap(evt) {
+  var now = new Date().getTime();
+  if (now - touchTime > 300) {
+    viewMap();
+    touchTime = now;
+    console.log('2 touchTime: ' + touchTime);
+  }
+}
+
+function viewSummaryListenerSummary(evt) {
+  var now = new Date().getTime();
+  if (now - touchTime > 300) {
+    viewDetail();
+    touchTime = now;
+    console.log('3 touchTime: ' + touchTime);
+  }
+}
+
 
 function viewSummary(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '80%';
-  mapCanvas.addEventListener('click', (evt) => {
-    var now = new Date().getTime();
-    if (now - touchTime > 300) {
-      viewMap();
-      touchTime = now;
-      console.log('2 touchTime: ' + touchTime);
-    }
-  });
+  mapCanvas.style.display = 'block';
+  mapCanvas.removeEventListener('click', viewDetailListenerSummary);
+  mapCanvas.addEventListener('click', viewSummaryListenerMap);
 
   var pinSummary = document.getElementById('pin-summary');
   pinSummary.style.height = '20%';
   pinSummary.style.display = 'block';
-  pinSummary.addEventListener('click', (evt) => {
-    var now = new Date().getTime();
-    if (now - touchTime > 300) {
-      viewDetail();
-      touchTime = now;
-      console.log('3 touchTime: ' + touchTime);
-    }
-  });
+  pinSummary.removeEventListener('click', viewDetailListenerSummary);
+  pinSummary.addEventListener('click', viewSummaryListenerSummary);
   pinSummary.innerHTML = 'ここに概要が出る';
 
   var pinDetail = document.getElementById('pin-detail');
+  pinDetail.style.height = '0%';
   pinDetail.style.display = 'none';
+  pinDetail.removeEventListener('click', viewDetailListenerDetail);
+}
+
+function viewDetailListenerMap(evt) {
+  var now = new Date().getTime();
+  if (now - touchTime > 300) {
+    viewMap();
+    touchTime = now;
+    console.log('4 touchTime: ' + touchTime);
+  }
+}
+
+function viewDetailListenerSummary(evt) {
+  var now = new Date().getTime();
+  if (now - touchTime > 300) {
+    viewSummary();
+    touchTime = now;
+    console.log('5 touchTime: ' + touchTime);
+  }
+}
+
+function viewDetailListenerDetail(evt) {
 }
 
 function viewDetail(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '20%';
-  mapCanvas.addEventListener('click', (evt) => {
-    var now = new Date().getTime();
-    if (now - touchTime > 300) {
-      viewMap();
-      touchTime = now;
-      console.log('4 touchTime: ' + touchTime);
-    }
-  });
+  pinSummary.style.display = 'block';
+  mapCanvas.removeEventListener('click', viewSummaryListenerSummary);
+  mapCanvas.addEventListener('click', viewDetailListenerMap);
 
   var pinSummary = document.getElementById('pin-summary');
   pinSummary.style.height = '20%';
   pinSummary.style.display = 'block';
-  pinSummary.addEventListener('click', (evt) => {
-    var now = new Date().getTime();
-    if (now - touchTime > 300) {
-      viewSummary();
-      touchTime = now;
-      console.log('5 touchTime: ' + touchTime);
-    }
-  });
+  pinSummary.removeEventListener('click', viewSummaryListenerSummary);
+  pinSummary.addEventListener('click', viewDetailListenerSummary);
   pinSummary.innerHTML = 'ここに概要が出る';
 
   var pinDetail = document.getElementById('pin-detail');
