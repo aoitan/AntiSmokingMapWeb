@@ -95,28 +95,49 @@ function makeMarker(pos, icon, image) {
 function viewMap() {
   var mapCanvas = window.getElementById('map-canvas');
   mapCanvas.style.height = '100%';
+
+  var pinSummary = window.getElementById('pin-summary');
+  pinSummary.style.display = 'none';
+
+  var pinDetail = window.getElementById('pin-detail');
+  pinDetail.style.display = 'none';
 }
 
 function viewSummary(html) {
   var mapCanvas = window.getElementById('map-canvas');
-  var pinSummary = window.getElementById('pin-summary');
   mapCanvas.style.height = '80%';
   mapCanvas.addEventListener('click', (evt) => {
     viewMap();
   });
+
+  var pinSummary = window.getElementById('pin-summary');
   pinSummary.style.height = '20%';
+  pinSummary.style.display = 'block';
   pinSummary.addEventListener('click', (evt) => {
     viewDetail();
   });
+
+  var pinDetail = window.getElementById('pin-detail');
+  pinDetail.style.display = 'none';
 }
 
 function viewDetail(html) {
   var mapCanvas = window.getElementById('map-canvas');
-  var pinSummary = window.getElementById('pin-summary');
-  var pinDetail = window.getElementById('pin-detail');
   mapCanvas.style.height = '20%';
+  mapCanvas.addEventListener('click', (evt) => {
+    viewSummary();
+  });
+
+  var pinSummary = window.getElementById('pin-summary');
   pinSummary.style.height = '20%';
+  pinSummary.style.display = 'block';
+  pinSummary.addEventListener('click', (evt) => {
+    viewSummary();
+  });
+
+  var pinDetail = window.getElementById('pin-detail');
   pinDetail.style.height = '60%';
+  pinDetail.style.display = 'block';
 }
 
 var dispatcher = {
