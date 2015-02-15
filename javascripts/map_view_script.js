@@ -17,6 +17,11 @@ function mapView(latitude, longitude) {
         mapOptions);
 }
 
+function setCenterPosition(lat, lng) {
+  var pos = new google.maps.LatLng(lat, lng);
+  map.setCenter(pos);
+}
+
 function makeMarker(file)
 {
   // 画像のURL
