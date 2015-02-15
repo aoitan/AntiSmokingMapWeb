@@ -88,9 +88,35 @@ function makeMarker(pos, icon, image) {
     }
     html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng();
     console.log(html);
-    infoWindow.setContent(html);
-    infoWindow.open(map, marker);
+    viewSummary(html);
   });
+}
+
+function viewMap() {
+  var mapCanvas = window.getElementById('map-canvas');
+  mapCanvas.style.height = '100%';
+}
+
+function viewSummary(html) {
+  var mapCanvas = window.getElementById('map-canvas');
+  var pinSummary = window.getElementById('pin-summary');
+  mapCanvas.style.height = '80%';
+  mapCanvas.addEventListener('click', (evt) => {
+    viewMap();
+  });
+  pinSummary.style.height = '20%';
+  pinSummary.addEventListener('click', (evt) => {
+    viewDetail();
+  });
+}
+
+function viewDetail(html) {
+  var mapCanvas = window.getElementById('map-canvas');
+  var pinSummary = window.getElementById('pin-summary');
+  var pinDetail = window.getElementById('pin-detail');
+  mapCanvas.style.height = '20%';
+  pinSummary.style.height = '20%';
+  pinDetail.style.height = '60%';
 }
 
 var dispatcher = {
