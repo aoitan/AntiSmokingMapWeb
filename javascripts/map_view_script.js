@@ -134,7 +134,7 @@ function viewSummary(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '80%';
   mapCanvas.style.display = 'block';
-  mapCanvas.removeEventListener('click', viewDetailListenerSummary);
+  mapCanvas.removeEventListener('click', viewDetailListenerMap);
   mapCanvas.addEventListener('click', viewSummaryListenerMap);
 
   var pinSummary = document.getElementById('pin-summary');
