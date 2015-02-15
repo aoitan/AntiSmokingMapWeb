@@ -82,7 +82,7 @@ function makeMarker(file)
 var dispatcher = {
   'current': function (params) {
     console.log('current: ' + JSON.stringify(params));
-    mapView(params.coords.latitude, params.coords.longitude);
+    setCenter(params.coords.latitude, params.coords.longitude);
   }
 };
 
