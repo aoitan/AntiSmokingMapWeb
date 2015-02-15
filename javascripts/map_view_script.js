@@ -22,7 +22,7 @@ function setCenterPosition(lat, lng) {
   map.setCenter(pos);
 }
 
-function makeMarker(file)
+function makeImageMarker(file)
 {
   // 画像のURL
   var url = window.URL.createObjectURL(file);
@@ -34,49 +34,60 @@ function makeMarker(file)
     img.addEventListener('load', function (inE) {
       var imgObj = inE.target;
 
-      // 高さが32になるように拡縮倍率を計算
-      var height = imgObj.naturalHeight;
-      var width = imgObj.naturalWidth;
-      var scale = 32 / height;
-
-      // 倍率をかけた幅
-      var scaledWidth = width * scale;
-
       // マーカー画像
-      var icon = new google.maps.MarkerImage(url,
-                 new google.maps.Size(width, height),
-                 new google.maps.Point(0, 0),
-                 new google.maps.Point(0, 0),
-                 new google.maps.Size(scaledWidth, 32));
+      var icon = makeIcon(imgObj, url);
 
       // 位置情報
       var pos = map.getCenter();
 
       // マーカーを作る
-      var marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-        icon: icon
-      });
-
-      // マーカーがクリックされたときに表示するinfoウィンドウを作る
-      var infoWindow = new google.maps.InfoWindow({
-        maxWidth: 320
-      });
-
-      // マーカーがクリックされたイベントハンドラ
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(
-          // infoウィンドウで表示する内容のHTML
-          '<a href="' + url + '"><img src="' + url + '"></a><br />' +
-          '緯度：' + pos.lat() + '<br />経度：' + pos.lng()
-        );
-        infoWindow.open(map, marker);
-      });
+      makeMarker(pos, icon);
     }, false);
     img.src = e.target.result;
   }, false);
   reader.readAsDataURL(file);
+}
+
+function makeIcon(imgObj, url) {
+  // 高さが32になるように拡縮倍率を計算
+  var height = imgObj.naturalHeight;
+  var width = imgObj.naturalWidth;
+  var scale = 32 / height;
+
+  // 倍率をかけた幅
+  var scaledWidth = width * scale;
+
+  // マーカー画像
+  var icon = new google.maps.MarkerImage(url,
+               new google.maps.Size(width, height),
+               new google.maps.Point(0, 0),
+               new google.maps.Point(0, 0),
+               new google.maps.Size(scaledWidth, 32));
+  return icon;
+}
+
+function makeMarker(pos, icon) {
+  // マーカーを作る
+  var marker = new google.maps.Marker({
+    position: pos,
+    map: map,
+    icon: icon
+  });
+
+  // マーカーがクリックされたときに表示するinfoウィンドウを作る
+  var infoWindow = new google.maps.InfoWindow({
+    maxWidth: 320
+  });
+
+  // マーカーがクリックされたイベントハンドラ
+  google.maps.event.addListener(marker, 'click', function() {
+    infoWindow.setContent(
+      // infoウィンドウで表示する内容のHTML
+      '<a href="' + url + '"><img src="' + url + '"></a><br />' +
+      '緯度：' + pos.lat() + '<br />経度：' + pos.lng()
+    );
+    infoWindow.open(map, marker);
+  });
 }
 
 var dispatcher = {
