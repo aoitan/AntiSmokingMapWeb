@@ -174,7 +174,7 @@ function viewDetailListenerDetail(evt) {
 function viewDetail(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '20%';
-  pinSummary.style.display = 'block';
+  mapCanvas.style.display = 'block';
   mapCanvas.removeEventListener('click', viewSummaryListenerSummary);
   mapCanvas.addEventListener('click', viewDetailListenerMap);
 
