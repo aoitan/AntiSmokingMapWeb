@@ -83,14 +83,7 @@ function makeMarker(pos, icon, image) {
   google.maps.event.addListener(marker, 'click', function() {
     var now = new Date().getTime();
     if (now - touchTime > 300) {
-      // infoウィンドウで表示する内容のHTML
-      var html = "";
-      if (image) {
-        html = '<a href="' + image + '"><img src="' + image + '"></a><br />';
-      }
-      html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng();
-      console.log(html);
-      viewSummary(html);
+      viewSummary();
       touchTime = now;
     }
   });
