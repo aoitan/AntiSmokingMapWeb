@@ -73,6 +73,7 @@ function makeMarker(pos, icon) {
     map: map,
     icon: icon
   });
+  console.log('makeMarker: ' + JSON.stringify(marker));
 
   // マーカーがクリックされたときに表示するinfoウィンドウを作る
   var infoWindow = new google.maps.InfoWindow({
@@ -92,16 +93,16 @@ function makeMarker(pos, icon) {
 
 var dispatcher = {
   'current': function (params) {
-    console.log('current: ' + JSON.stringify(params));
+    //console.log('current: ' + JSON.stringify(params));
     setCenterPosition(params.coords.latitude, params.coords.longitude);
   },
   'marker': function (params) {
-    console.log('marker: ' + JSON.stringify(params));
+    //console.log('marker: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.coords.latitude, params.coords.longitude);
     makeMarker(pos);
   },
   'latlng': function (params) {
-    console.log('latlng: ' + JSON.stringify(params));
+    //console.log('latlng: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.lat, params.lng);
     makeMarker(pos);
   }
@@ -112,7 +113,7 @@ window.addEventListener('message', (event) => {
   var idx = event.data.indexOf(':') + 1;
   var paramStr = event.data.slice(idx);
   var params = JSON.parse(paramStr);
-  console.log('cmd="' + cmd + '", params="' + JSON.stringify(params) + '"');
+  //console.log('cmd="' + cmd + '", params="' + JSON.stringify(params) + '"');
   dispatcher[cmd](params);
 });
 
