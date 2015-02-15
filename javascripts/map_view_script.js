@@ -41,7 +41,7 @@ function makeImageMarker(file)
       var pos = map.getCenter();
 
       // マーカーを作る
-      makeMarker(pos, icon);
+      makeMarker(pos, icon, url);
     }, false);
     img.src = e.target.result;
   }, false);
@@ -52,7 +52,7 @@ function makeIcon(imgObj, url) {
   // 高さが32になるように拡縮倍率を計算
   var height = imgObj.naturalHeight;
   var width = imgObj.naturalWidth;
-  var scale = 32 / height;
+  var scale = 32 / height, url;
 
   // 倍率をかけた幅
   var scaledWidth = width * scale;
@@ -87,7 +87,8 @@ function makeMarker(pos, icon, image) {
     if (image) {
       html = '<a href="' + image + '"><img src="' + image + '"></a><br />';
     }
-    html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng()
+    html += '緯度：' + pos.lat() + '<br />経度：' + pos.lng();
+    console.log(html);
     infoWindow.setContent(html);
     infoWindow.open(map, marker);
   });
