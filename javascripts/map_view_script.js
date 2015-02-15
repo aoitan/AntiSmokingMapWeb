@@ -99,6 +99,11 @@ var dispatcher = {
     console.log('marker: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.coords.latitude, params.coords.longitude);
     makeMarker(pos);
+  },
+  'latlng': function (params) {
+    console.log('latlng: ' + JSON.stringify(params));
+    var pos = new google.maps.LatLng(params.lat, params.lng);
+    makeMarker(pos);
   }
 };
 
