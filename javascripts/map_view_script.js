@@ -126,7 +126,7 @@ function viewDetail(html) {
   var mapCanvas = document.getElementById('map-canvas');
   mapCanvas.style.height = '20%';
   mapCanvas.addEventListener('click', (evt) => {
-    viewSummary();
+    viewMap();
   });
 
   var pinSummary = document.getElementById('pin-summary');
