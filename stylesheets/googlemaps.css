@@ -12,6 +12,7 @@ html, body {
 #pin-summary {
   width: 100%;
   background-color: blue;
+  font-color: white;
 }
 
 #pin-detail {

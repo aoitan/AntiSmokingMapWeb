@@ -116,6 +116,7 @@ function viewSummary(html) {
   pinSummary.addEventListener('click', (evt) => {
     viewDetail();
   });
+  pinSummary.innerHTML = 'ここに概要が出る';
 
   var pinDetail = document.getElementById('pin-detail');
   pinDetail.style.display = 'none';
@@ -134,10 +135,12 @@ function viewDetail(html) {
   pinSummary.addEventListener('click', (evt) => {
     viewSummary();
   });
+  pinSummary.innerHTML = 'ここに概要が出る';
 
   var pinDetail = document.getElementById('pin-detail');
   pinDetail.style.height = '60%';
   pinDetail.style.display = 'block';
+  pinDetail.innerHTML = 'ここに詳細が出る';
 }
 
 var dispatcher = {
