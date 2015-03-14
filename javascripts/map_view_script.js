@@ -30,9 +30,9 @@ function makeMarker(id, pos, type) {
       'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
       'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
     ];
-  //var icon = ICON[type % 4];
+  var icon = ICON[type % 4];
   var marker = new google.maps.Marker({
-    //icon: icon,
+    icon: icon,
     position: pos
   });
 
