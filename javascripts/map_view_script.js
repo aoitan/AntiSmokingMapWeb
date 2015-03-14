@@ -150,11 +150,11 @@ function viewDetail(html) {
 
 var dispatcher = {
   'current': function (params) {
-    //console.log('current: ' + JSON.stringify(params));
+    console.log('current: ' + JSON.stringify(params));
     setCenterPosition(params.coords.latitude, params.coords.longitude);
   },
   'marker': function (params) {
-    //console.log('marker: ' + JSON.stringify(params));
+    console.log('marker: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.coords.latitude, params.coords.longitude);
     makeMarker(params.id, pos, params.type);
   },
