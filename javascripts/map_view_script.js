@@ -30,10 +30,10 @@ function makeMarker(id, pos, type) {
       'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
       'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
     ];
-  var icon = ICON[type % 4];
+  //var icon = ICON[type % 4];
   var marker = new google.maps.Marker({
-    position: pos,
-    icon: icon
+    //icon: icon,
+    position: pos
   });
 
   // マーカーがクリックされたイベントハンドラ
@@ -154,12 +154,12 @@ var dispatcher = {
     setCenterPosition(params.coords.latitude, params.coords.longitude);
   },
   'marker': function (params) {
-    console.log('marker: ' + JSON.stringify(params));
+    //console.log('marker: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.coords.latitude, params.coords.longitude);
     makeMarker(params.id, pos, params.type);
   },
   'latlng': function (params) {
-    console.log('latlng: ' + JSON.stringify(params));
+    //console.log('latlng: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.lat, params.lng);
     makeMarker(params.id, pos, params.type);
   }
