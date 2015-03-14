@@ -32,7 +32,7 @@ function makeMarker(id, pos, type) {
     ];
   var icon = ICON[type % 4];
   var marker = new google.maps.Marker({
-    icon: icon,
+    //icon: icon,
     position: pos
   });
 
