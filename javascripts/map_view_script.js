@@ -161,7 +161,7 @@ var dispatcher = {
   'latlng': function (params) {
     console.log('latlng: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.lat, params.lng);
-    makeMarker(params.id, pos, param.type);
+    makeMarker(params.id, pos, params.type);
   }
 };
 
