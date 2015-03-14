@@ -22,61 +22,12 @@ function setCenterPosition(lat, lng) {
   map.setCenter(pos);
 }
 
-function makeImageMarker(file)
-{
-  // 画像のURL
-  var url = window.URL.createObjectURL(file);
-
-  // 画像サイズ取得
-  var reader = new FileReader();
-  reader.addEventListener('load', function(e) {
-    var img = new Image();
-    img.addEventListener('load', function (inE) {
-      var imgObj = inE.target;
-
-      // マーカー画像
-      var icon = makeIcon(imgObj, url);
-
-      // 位置情報
-      var pos = map.getCenter();
-
-      // マーカーを作る
-      makeMarker(pos, icon, url);
-    }, false);
-    img.src = e.target.result;
-  }, false);
-  reader.readAsDataURL(file);
-}
-
-function makeIcon(imgObj, url) {
-  // 高さが32になるように拡縮倍率を計算
-  var height = imgObj.naturalHeight;
-  var width = imgObj.naturalWidth;
-  var scale = 32 / height, url;
-
-  // 倍率をかけた幅
-  var scaledWidth = width * scale;
-
-  // マーカー画像
-  var icon = new google.maps.MarkerImage(url,
-               new google.maps.Size(width, height),
-               new google.maps.Point(0, 0),
-               new google.maps.Point(0, 0),
-               new google.maps.Size(scaledWidth, 32));
-  return icon;
-}
-
-function makeMarker(pos, icon, image) {
+function makeMarker(id, pos, icon, image, type) {
   // マーカーを作る
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
     icon: icon
-  });
-
-  // マーカーがクリックされたときに表示するinfoウィンドウを作る
-  var infoWindow = new google.maps.InfoWindow({
-    maxWidth: 320
   });
 
   // マーカーがクリックされたイベントハンドラ
@@ -199,12 +150,12 @@ var dispatcher = {
   'marker': function (params) {
     //console.log('marker: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.coords.latitude, params.coords.longitude);
-    makeMarker(pos);
+    makeMarker(params.id, pos);
   },
   'latlng': function (params) {
     //console.log('latlng: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.lat, params.lng);
-    makeMarker(pos);
+    makeMarker(params.id, pos, null, null, param.type);
   }
 };
 
