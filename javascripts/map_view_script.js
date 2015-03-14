@@ -150,7 +150,7 @@ function viewDetail(html) {
 
 var dispatcher = {
   'current': function (params) {
-    console.log('current: ' + JSON.stringify(params));
+    //console.log('current: ' + JSON.stringify(params));
     setCenterPosition(params.coords.latitude, params.coords.longitude);
   },
   'marker': function (params) {
