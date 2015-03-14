@@ -32,7 +32,8 @@ function makeMarker(id, pos, type) {
     ];
   var icon = ICON[type % 4];
   var marker = new google.maps.Marker({
-    //icon: icon,
+    icon: icon,
+    map: map,
     position: pos
   });
 
@@ -159,7 +160,7 @@ var dispatcher = {
     makeMarker(params.id, pos, params.type);
   },
   'latlng': function (params) {
-    console.log('latlng: ' + JSON.stringify(params));
+    //console.log('latlng: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.lat, params.lng);
     makeMarker(params.id, pos, params.type);
   }
