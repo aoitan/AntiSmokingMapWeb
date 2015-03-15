@@ -71,11 +71,14 @@ function makeMarker(id, pos, type, detail) {
       } else if (4.5 <= detail.rating && detail.rating < 5.0) {
         star = 'images/star_5.0.gif';
       }
+      var name = (detail.name)? detail.name: '名前はまだない';
       var summaryView = document.getElementById('pin-summary');
-      summaryView.innerHTML = '<h1 class="title">' + detail.name + '</h1>' +
+      summaryView.innerHTML = '<h1 class="title">' + name + '</h1>' +
                           '<img src="' + star + '">';
       var detailView = document.getElementById('pin-detail');
-      var detailHtml = '<p class="address">' + detail.address + '</p>';
+
+      var address = (detail.address)? detail.address: '住所不<span style="text-decoration: line-through">定</span>明';
+      var detailHtml = '<p class="address">' + address + '</p>';
       detail.comment.forEach((item) => {
         detailHtml = detailHtml + '<p class="comment">' + item + '</p>';
       });
