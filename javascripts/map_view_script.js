@@ -80,7 +80,7 @@ function makeMarker(id, pos, type, detail) {
       var address = (detail.address)? detail.address: '<span style="text-decoration: line-through">住所不定</span>住所不明';
       var detailHtml = '<p class="address">' + address + '</p>';
       detail.comment.forEach((item) => {
-        detailHtml = detailHtml + '<p class="comment">' + item + '</p>';
+        detailHtml = detailHtml + '<p class="comment">' + item[0] + '<span style="font-size: small">' + item[1] + '</span></p>';
       });
       detailView.innerHTML = detailHtml;
 
