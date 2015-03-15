@@ -171,7 +171,7 @@ function viewDetail(html) {
   mapCanvas.style.height = '20%';
   mapCanvas.style.display = 'block';
   mapCanvas.removeEventListener('click', viewSummaryListenerSummary);
-  mapCanvas.addEventListDataener('click', viewDetailListenerMap);
+  mapCanvas.addEventListener('click', viewDetailListenerMap);
 
   var pinSummary = document.getElementById('pin-summary');
   pinSummary.style.height = '20%';
