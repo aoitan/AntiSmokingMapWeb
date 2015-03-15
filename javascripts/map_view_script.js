@@ -77,7 +77,7 @@ function makeMarker(id, pos, type, detail) {
                           '<img src="' + star + '">';
       var detailView = document.getElementById('pin-detail');
 
-      var address = (detail.address)? detail.address: '住所不<span style="text-decoration: line-through">定</span>明';
+      var address = (detail.address)? detail.address: '<span style="text-decoration: line-through">住所不定</span>住所不明';
       var detailHtml = '<p class="address">' + address + '</p>';
       detail.comment.forEach((item) => {
         detailHtml = detailHtml + '<p class="comment">' + item + '</p>';
