@@ -1,3 +1,8 @@
+/* global google */
+var touchTime = 0;
+
+var source = null;
+
 window.addEventListener('DOMContentLoaded', function () {
   map_view_loading();
 });
@@ -22,7 +27,7 @@ function setCenterPosition(lat, lng) {
   map.setCenter(pos);
 }
 
-function makeMarker(id, pos, type) {
+function makeMarker(id, pos, type, detail) {
   // マーカーを作る
   var ICON = [
       'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
@@ -41,14 +46,47 @@ function makeMarker(id, pos, type) {
   google.maps.event.addListener(marker, 'click', function() {
     var now = new Date().getTime();
     if (now - touchTime > 300) {
+      // 概要表示と詳細表示を作る
+      var star = "";
+      if (0 <= detail.rating && detail.rating < 0.5) {
+        star = 'images/star_0.0.gif';
+      } else if (0.5 <= detail.rating && detail.rating < 1.0) {
+        star = 'images/star_0.5.gif';
+      } else if (1.0 <= detail.rating && detail.rating < 1.5) {
+        star = 'images/star_1.0.gif';
+      } else if (1.5 <= detail.rating && detail.rating < 2.0) {
+        star = 'images/star_1.5.gif';
+      } else if (2.0 <= detail.rating && detail.rating < 2.5) {
+        star = 'images/star_2.0.gif';
+      } else if (2.5 <= detail.rating && detail.rating < 3.0) {
+        star = 'images/star_2.5.gif';
+      } else if (3.0 <= detail.rating && detail.rating < 3.5) {
+        star = 'images/star_3.0.gif';
+      } else if (3.5 <= detail.rating && detail.rating < 4.0) {
+        star = 'images/star_3.5.gif';
+      } else if (1.0 <= detail.rating && detail.rating < 1.5) {
+        star = 'images/star_4.0.gif';
+      } else if (4.0 <= detail.rating && detail.rating < 4.5) {
+        star = 'images/star_4.5.gif';
+      } else if (4.5 <= detail.rating && detail.rating < 5.0) {
+        star = 'images/star_5.0.gif';
+      }
+      var summaryView = document.getElementById('pin-summary');
+      summaryView.innerHTML = '<h1 class="title">' + detail.name + '</h1>' +
+                          '<img src="' + star + '">';
+      var detailView = document.getElementById('pin-detail');
+      var detailHtml = '<p class="address">' + detail.address + '</p>';
+      detail.comment.forEach((item) => {
+        detailHtml = detailHtml + '<p class="comment">' + item + '</p>';
+      });
+      detailView.innerHTML = detailHtml;
+
       viewSummary();
       touchTime = now;
       console.log('1 touchTime: ' + touchTime);
     }
   });
 }
-
-var touchTime = 0;
 
 function viewMap() {
   var mapCanvas = document.getElementById('map-canvas');
@@ -100,7 +138,6 @@ function viewSummary(html) {
   pinSummary.style.display = 'block';
   pinSummary.removeEventListener('click', viewDetailListenerSummary);
   pinSummary.addEventListener('click', viewSummaryListenerSummary);
-  pinSummary.innerHTML = 'ここに概要が出る';
 
   var pinDetail = document.getElementById('pin-detail');
   pinDetail.style.height = '0%';
@@ -134,7 +171,7 @@ function viewDetail(html) {
   mapCanvas.style.height = '20%';
   mapCanvas.style.display = 'block';
   mapCanvas.removeEventListener('click', viewSummaryListenerSummary);
-  mapCanvas.addEventListener('click', viewDetailListenerMap);
+  mapCanvas.addEventListDataener('click', viewDetailListenerMap);
 
   var pinSummary = document.getElementById('pin-summary');
   pinSummary.style.height = '20%';
@@ -162,11 +199,12 @@ var dispatcher = {
   'latlng': function (params) {
     //console.log('latlng: ' + JSON.stringify(params));
     var pos = new google.maps.LatLng(params.lat, params.lng);
-    makeMarker(params.id, pos, params.type);
+    makeMarker(params.id, pos, params.type, params.detail);
   }
 };
 
 window.addEventListener('message', (event) => {
+  source = event.source;
   var cmd = event.data.split(':')[0];
   var idx = event.data.indexOf(':') + 1;
   var paramStr = event.data.slice(idx);
